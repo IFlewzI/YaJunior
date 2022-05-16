@@ -12,11 +12,8 @@ namespace idk_why__it_s_just_existing
             int hourDuration = 60;
             int waitingTimeForOneGranny = 10;
             int overallWaitingTime = grannysCount * waitingTimeForOneGranny;
-            int waitingHours;
-            int waitingMinutes;
-
-            waitingHours = overallWaitingTime / hourDuration;
-            waitingMinutes = overallWaitingTime % hourDuration;
+            int waitingHours = overallWaitingTime / hourDuration;
+            int waitingMinutes = overallWaitingTime % hourDuration;
 
             Console.WriteLine("Для очереди в {0} бабуль, вам необходимо прождать {1} часов и {2} минут", grannysCount, waitingHours, waitingMinutes);
         }

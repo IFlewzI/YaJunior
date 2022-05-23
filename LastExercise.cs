@@ -21,10 +21,13 @@ namespace Gladiatorial_Fight
             int playerFirstSkillMinDamage = 200;
             int playerFirstSkillMaxDamage = 300;
             float playerFirstSkillDamage;
+            float playerSecondSkillArmorDebuff = 0.2f;
+            float playerSecondSkillPercentArmorDebuff = playerSecondSkillArmorDebuff * 100;
             int playerThirdSkillMinDamage = 400;
             int playerThirdSkillMaxDamage = 650;
             float playerThirdSkillDamage;
             float playerFourthSkillArmorBuff = 0.9f;
+            float playerFourthSkillPercentArmorBuff = playerFourthSkillArmorBuff * 100;
             bool isEnemyStunned = false;
             bool isSpecialAttackRunning = false;
             // Boss stats
@@ -33,8 +36,8 @@ namespace Gladiatorial_Fight
             float bossHealth = bossMaxHealth;
             float bossArmor = 0;
             float bossDefaultDamage = 20;
-            bool bossFirstSpecialAttack = false;
-            bool bossSecondSpecialAttack = false;
+            bool isBossFirstSpecialAttackRunning = false;
+            bool isBossSecondSpecialAttackRunning = false;
             // Boss attacks stats
             int bossFirstSkillMinDamage = 20;
             int bossFirstSkillMaxDamage = 35;
@@ -51,7 +54,7 @@ namespace Gladiatorial_Fight
             float damageToPlayer;
             float damageToBoss;
             bool playerDodge = false;
-            bool dataIsOkay = false;
+            bool isDataOkay = false;
             Random rand = new Random();
 
             // Start
@@ -62,15 +65,15 @@ namespace Gladiatorial_Fight
 
             Console.WriteLine("Итак, {0}, я наделяю вас классом {1}, а также следующими характеристиками и умениями: ", playerName, playerClass);
 
-            Console.WriteLine("{0}. \nЗдоровье - {1} \nУмение №1 - Глубокий порез: Проведите удар мечом и нанесите от 200 до 300 урона " +
-                "по противнику.\n", playerClass, playerHealth);
+            Console.WriteLine("{0}. \nЗдоровье - {1} \nУмение №1 - Глубокий порез: Проведите удар мечом и нанесите от {2} до {3} урона " +
+                "по противнику.\n", playerClass, playerHealth, playerFirstSkillMinDamage, playerFirstSkillMaxDamage);
             Console.WriteLine("Умение №2 - Оглушительный крик: Ошеломите противника своим криком и понизьте его способность к блокированию атак. " +
-                "После применения противник начинает получать на 20% урона больше.\n");
+                "После применения противник начинает получать на {0}% урона больше.\n", playerSecondSkillPercentArmorDebuff);
             Console.WriteLine("Умение №3 - Подлый трюк: Воспользуйтесь дезориентацией врага и проведите сокрушающий удар. " +
-                "Для активации умения на противнике должен быть статус ошеломлённости. Умение наносит от 450 до 650 урона, " +
+                "Для активации умения на противнике должен быть статус ошеломлённости. Умение наносит от {0} до {1} урона, " +
                 "а также снимает с противника статус ошёломлённости (После нанесения урона). Также подлый трюк может помешать " +
-                "врагу в подготовке некоторых заклинаний/атак.\n");
-            Console.WriteLine("Умение №4 - Ростовой щит: Примите позицию обороны и проигнорируйте 90% урона от следующей атаки противника.\n");
+                "врагу в подготовке некоторых заклинаний/атак.\n", playerThirdSkillMinDamage, playerThirdSkillMaxDamage);
+            Console.WriteLine("Умение №4 - Ростовой щит: Примите позицию обороны и проигнорируйте {0}% урона от следующей атаки противника.\n", playerFourthSkillPercentArmorBuff);
             Console.WriteLine("\nИтак, {0}, вы готовы начать битву? \nНажмите любую кнопку чтобы продолжить...", playerName);
             Console.ReadKey();
 
@@ -91,7 +94,7 @@ namespace Gladiatorial_Fight
 
                     do
                     {
-                        dataIsOkay = false;
+                        isDataOkay = false;
                         Console.WriteLine("1. Глубокий порез \n" +
                             "2. Оглушительный крик \n" +
                             "3. Подлый трюк \n" +
@@ -99,10 +102,10 @@ namespace Gladiatorial_Fight
                         Console.Write("Введите номер умения: ");
                         playerInput = Convert.ToInt32(Console.ReadLine());
                         if (playerInput > 0 && playerInput < 5)
-                            dataIsOkay = true;
+                            isDataOkay = true;
                         else
                             Console.WriteLine("Были введены неверные данные. Попробуйте использовать цифры от 1 до 4");
-                    } while (dataIsOkay == false);
+                    } while (isDataOkay == false);
                     currentRoundPlayerMove = playerInput;
 
                     switch (currentRoundPlayerMove)
@@ -116,7 +119,7 @@ namespace Gladiatorial_Fight
                         case 2:
                             Console.WriteLine("\nВы вскрикиваете так громко, что противник дезориентируется и становится лёгкой мишенью для вашего клинка.");
                             isEnemyStunned = true;
-                            bossArmor -= 0.2f;
+                            bossArmor -= playerSecondSkillArmorDebuff;
                             break;
                         case 3:
                             if (isEnemyStunned == true)
@@ -126,7 +129,7 @@ namespace Gladiatorial_Fight
                                 Console.WriteLine("\nВы, пользуясь уязвимостью врага, атакуете его в слабое место и наносите {0} урона.", damageToBoss);
                                 bossHealth -= damageToBoss;
                                 isEnemyStunned = false;
-                                bossArmor += 0.2f;
+                                bossArmor += playerSecondSkillArmorDebuff;
                                 if (isSpecialAttackRunning == true)
                                 {
                                     Console.WriteLine("Также вы прервали противника во время подготовки заклинания, что заставит его пропустить ход.");
@@ -159,7 +162,7 @@ namespace Gladiatorial_Fight
                 {
                     currentRoundBossMove = rand.Next(1, 5);
 
-                    if (bossFirstSpecialAttack == false && bossSecondSpecialAttack == false)
+                    if (isBossFirstSpecialAttackRunning == false && isBossSecondSpecialAttackRunning == false)
                     {
                         switch (currentRoundBossMove)
                         {
@@ -188,16 +191,16 @@ namespace Gladiatorial_Fight
                             case 3:
                                 Console.WriteLine("{0} вздымает руки к небу и в его руках появляется синий шар, излучающий неимоверное " +
                                     "количество магии... Вполне вероятно, что он готовит что-то серьёзное...", bossName);
-                                bossFirstSpecialAttack = true;
+                                isBossFirstSpecialAttackRunning = true;
                                 isSpecialAttackRunning = true;
                                 break;
                             case 4:
                                 Console.WriteLine("{0} поднимает вокруг вас ледяную клетку, от которой исходят едва уловимые пульсации...", bossName);
-                                bossSecondSpecialAttack = true;
+                                isBossSecondSpecialAttackRunning = true;
                                 break;
                         }
                     }
-                    else if (bossFirstSpecialAttack == true)
+                    else if (isBossFirstSpecialAttackRunning == true)
                     {
                         if (isSpecialAttackRunning == true)
                         {
@@ -219,10 +222,10 @@ namespace Gladiatorial_Fight
                         {
                             Console.WriteLine("Синий шар рассеивается и магия перестаёт витать в воздухе...");
                         }
-                        bossFirstSpecialAttack = false;
+                        isBossFirstSpecialAttackRunning = false;
                         isSpecialAttackRunning = false;
                     }
-                    else if (bossSecondSpecialAttack == true)
+                    else if (isBossSecondSpecialAttackRunning == true)
                     {
                         damageToPlayer = bossSecondSpecialSkillDamage * (1 - playerArmor);
                         Console.WriteLine("Ледяная клетка выпускает из себя множество кольев, нанося вам {0} урона", damageToPlayer);
@@ -231,7 +234,7 @@ namespace Gladiatorial_Fight
                         {
                             Console.WriteLine("Щит буквально спас вас...");
                         }
-                        bossSecondSpecialAttack = false;
+                        isBossSecondSpecialAttackRunning = false;
 
                     }
                     Console.WriteLine("\nУ вас осталось {0} единиц здоровья \n", playerHealth);

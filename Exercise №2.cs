@@ -12,7 +12,7 @@ namespace idk_why__it_s_just_existing
             {
                 Console.Write("Введите текст: ");
                 userInput = Console.ReadLine();
-            } while ((userInput != "exit") && (userInput != "Exit"));
+            } while (userInput.ToLower() != "exit");
         }
     }
 }

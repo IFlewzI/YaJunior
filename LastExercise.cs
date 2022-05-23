@@ -53,7 +53,7 @@ namespace Gladiatorial_Fight
             int currentRoundBossMove;
             float damageToPlayer;
             float damageToBoss;
-            bool playerDodge = false;
+            bool isPlayerDodging = false;
             bool isDataOkay = false;
             Random rand = new Random();
 
@@ -86,6 +86,7 @@ namespace Gladiatorial_Fight
                 damageToPlayer = 0;
                 damageToBoss = 0;
                 playerArmor = 0;
+
                 if (playerHealth > 0)
                 {
                     Console.WriteLine("Раунд №{0}.", roundNumber);
@@ -105,6 +106,7 @@ namespace Gladiatorial_Fight
                         else
                             Console.WriteLine("Были введены неверные данные. Попробуйте использовать цифры от 1 до 4");
                     } while (isDataOkay == false);
+
                     currentRoundPlayerMove = playerInput;
 
                     switch (currentRoundPlayerMove)
@@ -129,6 +131,7 @@ namespace Gladiatorial_Fight
                                 bossHealth -= damageToBoss;
                                 isEnemyStunned = false;
                                 bossArmor += playerSecondSkillArmorDebuff;
+
                                 if (isSpecialAttackRunning == true)
                                 {
                                     Console.WriteLine("Также вы прервали противника во время подготовки заклинания, что заставит его пропустить ход.");
@@ -148,6 +151,7 @@ namespace Gladiatorial_Fight
                             playerArmor += playerFourthSkillArmorBuff;
                             break;
                     }
+
                     Console.WriteLine("\nУ великана осталось {0} единиц здоровья.", bossHealth);
                 }
                 else
@@ -172,12 +176,13 @@ namespace Gladiatorial_Fight
                                 playerHealth -= damageToPlayer;
                                 break;
                             case 2:
-                                playerDodge = Convert.ToBoolean(rand.Next(0, 2));
+                                isPlayerDodging = Convert.ToBoolean(rand.Next(0, 2));
                                 Console.Write("{0} Достаёт из-за пазухи ледяные копья и метает их в вас, ", bossName);
-                                if (playerDodge == true)
+
+                                if (isPlayerDodging == true)
                                 {
                                     Console.WriteLine("но вы смогли увернуться!");
-                                    playerDodge = false;
+                                    isPlayerDodging = false;
                                 }
                                 else
                                 {
@@ -186,6 +191,7 @@ namespace Gladiatorial_Fight
                                     Console.WriteLine("после чего наносит {0} единиц урона.", damageToPlayer);
                                     playerHealth -= damageToPlayer;
                                 }
+
                                 break;
                             case 3:
                                 Console.WriteLine("{0} вздымает руки к небу и в его руках появляется синий шар, излучающий неимоверное " +
@@ -207,6 +213,7 @@ namespace Gladiatorial_Fight
                             Console.Write("Синий шар поднимается в небо... После чего с ослепляющей яркостью взрывается... " +
                                 "Вам нанесено {0} единиц урона... ", damageToPlayer);
                             playerHealth -= damageToPlayer;
+
                             if (playerArmor >= playerFourthSkillArmorBuff) 
                             {
                                 Console.WriteLine("К сожалению щит не помог..."); 
@@ -220,6 +227,7 @@ namespace Gladiatorial_Fight
                         {
                             Console.WriteLine("Синий шар рассеивается и магия перестаёт витать в воздухе...");
                         }
+
                         isBossFirstSpecialAttackRunning = false;
                         isSpecialAttackRunning = false;
                     }
@@ -228,12 +236,14 @@ namespace Gladiatorial_Fight
                         damageToPlayer = bossSecondSpecialSkillDamage * (1 - playerArmor);
                         Console.WriteLine("Ледяная клетка выпускает из себя множество кольев, нанося вам {0} урона", damageToPlayer);
                         playerHealth -= damageToPlayer;
+
                         if (playerArmor >= playerFourthSkillArmorBuff && playerHealth > 0)
                         {
                             Console.WriteLine("Щит буквально спас вас...");
                         }
                         isBossSecondSpecialAttackRunning = false;
                     }
+
                     Console.WriteLine("\nУ вас осталось {0} единиц здоровья \n", playerHealth);
                     roundNumber++;
                 }

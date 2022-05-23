@@ -64,7 +64,6 @@ namespace Gladiatorial_Fight
             playerName = Console.ReadLine();
 
             Console.WriteLine("Итак, {0}, я наделяю вас классом {1}, а также следующими характеристиками и умениями: ", playerName, playerClass);
-
             Console.WriteLine("{0}. \nЗдоровье - {1} \nУмение №1 - Глубокий порез: Проведите удар мечом и нанесите от {2} до {3} урона " +
                 "по противнику.\n", playerClass, playerHealth, playerFirstSkillMinDamage, playerFirstSkillMaxDamage);
             Console.WriteLine("Умение №2 - Оглушительный крик: Ошеломите противника своим криком и понизьте его способность к блокированию атак. " +
@@ -204,7 +203,6 @@ namespace Gladiatorial_Fight
                     {
                         if (isSpecialAttackRunning == true)
                         {
-
                             damageToPlayer = bossFirstSpecialSkillDamage * (1 - playerArmor);
                             Console.Write("Синий шар поднимается в небо... После чего с ослепляющей яркостью взрывается... " +
                                 "Вам нанесено {0} единиц урона... ", damageToPlayer);
@@ -235,7 +233,6 @@ namespace Gladiatorial_Fight
                             Console.WriteLine("Щит буквально спас вас...");
                         }
                         isBossSecondSpecialAttackRunning = false;
-
                     }
                     Console.WriteLine("\nУ вас осталось {0} единиц здоровья \n", playerHealth);
                     roundNumber++;

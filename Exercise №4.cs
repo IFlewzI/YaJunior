@@ -8,13 +8,15 @@ namespace idk_why__it_s_just_existing
         {
             Random random = new Random();
             int summa = 0;
-            int number = 6;
+            int number = random.Next(0, 101);
+            int firstSuitableNumber = 3;
+            int secondSuitableNumber = 5;
 
             Console.WriteLine("Сгенерированное число: {0}", number);
 
-            for(int i = 0; i <= number; i++)
+            for (int i = 0; i <= number; i++)
             {
-                if ((i % 3 == 0) || (i % 5 == 0))
+                if ((i % firstSuitableNumber == 0) || (i % secondSuitableNumber == 0))
                 {
                     summa += i;
                 }

@@ -8,9 +8,11 @@ namespace idk_why__it_s_just_existing
         {
             Random random = new Random();
             int summa = 0;
-            int number = random.Next(0, 101);
+            int minRandomNumber = 0;
+            int maxRandomNumber = 100;
             int firstSuitableNumber = 3;
             int secondSuitableNumber = 5;
+            int number = random.Next(minRandomNumber, maxRandomNumber + 1);
 
             Console.WriteLine("Сгенерированное число: {0}", number);
 
@@ -22,7 +24,7 @@ namespace idk_why__it_s_just_existing
                 }
             }
 
-            Console.WriteLine("Сумма чисел, кратных 3 или 5, но меньше {0}: {1}", number, summa);
+            Console.WriteLine("Сумма чисел, кратных {0} или {1}, но меньше {2}: {3}", firstSuitableNumber, secondSuitableNumber, number, summa);
         }
     }
 }

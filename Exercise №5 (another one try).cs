@@ -26,7 +26,7 @@ namespace idk_why__it_s_just_existing
 
             Console.WriteLine("Ваш баланс: \nЕвро: {0} \nДоллары: {1} \nРубли: {2}", eur, usd, rub);
 
-            while (true)
+            do
             {
                 do
                 {
@@ -253,10 +253,7 @@ namespace idk_why__it_s_just_existing
 
                 Console.Write("\nХотите ли вы продолжить использование программы? \nНажмите Enter, чтобы продолжить. \nВведите exit, чтобы выйти. \nПоле для ввода: ");
                 userTextInput = Console.ReadLine();
-                
-                if(userTextInput.ToLower() == "exit")
-                    break;
-            }
+            } while (userTextInput.ToLower() != "exit");
         }
     }
 }

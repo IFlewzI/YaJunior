@@ -15,7 +15,7 @@ namespace idk_why__it_s_just_existing
             int consoleColor;
             int consoleTextColor;
             int randomNumber;
-            // User Info
+            int minUserAge = 10;
             string userName;
             float userAge;
             int minRandomNumber = 0;
@@ -27,7 +27,7 @@ namespace idk_why__it_s_just_existing
             Console.Write("\nОчень приятно познакомиться, {0}! Теперь пожалуйста введите ваш возраст. \nПоле для ввода: ", userName);
             userAge = Convert.ToInt32(Console.ReadLine());
 
-            if (userAge > 10)
+            if (userAge > minUserAge)
             {
                 while (isProgramRunning)
                 {

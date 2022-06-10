@@ -12,7 +12,7 @@ namespace idk_why__it_s_just_existing
             int requiredDegree = 0;
             int finalNumber = 0;
 
-            for (int i = 1; finalNumber < requiredNumber; i++)
+            for (int i = 0; finalNumber < requiredNumber; i++)
             {
                 requiredDegree = i;
                 finalNumber = Convert.ToInt32(Math.Pow(numberThatRaisingToAPower, requiredDegree));

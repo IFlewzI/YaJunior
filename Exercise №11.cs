@@ -8,24 +8,17 @@ namespace idk_why__it_s_just_existing
         {
             bool isStringCorrect = true;
             string parentheses = "(()(()))";
-            int parenthesesWithoutPares = 0;
             int currentDepth = 0;
             int maxDepth = 0;
 
-            foreach (char i in parentheses)
+            foreach (char symbol in parentheses)
             {
-                if (i == '(')
-                {
-                    parenthesesWithoutPares++;
+                if (symbol == '(')
                     currentDepth++;
-                }
-                else if (i == ')')
-                {
-                    parenthesesWithoutPares--;
+                else if (symbol == ')')
                     currentDepth--;
-                }
 
-                if (parenthesesWithoutPares < 0)
+                if (currentDepth < 0)
                 {
                     isStringCorrect = false;
                     break;
@@ -35,7 +28,7 @@ namespace idk_why__it_s_just_existing
                     maxDepth = currentDepth;
             }
 
-            if (parenthesesWithoutPares != 0)
+            if (currentDepth != 0)
                 isStringCorrect = false;
 
             if (isStringCorrect)

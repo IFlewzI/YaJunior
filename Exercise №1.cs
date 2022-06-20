@@ -19,18 +19,16 @@ namespace idk_why__it_s_just_existing
             for (int i = 0; i < numbers.GetLength(0); i++)
             {
                 for (int j = 0; j < numbers.GetLength(1); j++)
-                {
                     Console.Write(numbers[i, j] + " ");
 
-                    if (i == requiredString - 1)
-                        sumOfNumbers += numbers[i, j];
-
-                    if (j == requiredColumn - 1)
-                        productOfNumbers *= numbers[i, j];
-                }
-                
                 Console.WriteLine();
             }
+
+            for (int i = 0; i < numbers.GetLength(1); i++)
+                sumOfNumbers += numbers[requiredString - 1, i];
+
+            for (int i = 0; i < numbers.GetLength(0); i++)
+                productOfNumbers *= numbers[i, requiredColumn - 1];
 
             Console.WriteLine("\nСумма строки №{0}: {1} \n\nПроизведение столбца №{2}: {3}", requiredString, sumOfNumbers, requiredColumn, productOfNumbers);
         }

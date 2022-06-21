@@ -9,8 +9,6 @@ namespace idk_why__it_s_just_existing
             bool isProgramRunning = true;
             string userInput;
             float[] numbers = new float[1];
-            float[] tempNumbers;
-            float sumOfNumbers = 0;
 
             while (isProgramRunning)
             {
@@ -20,8 +18,8 @@ namespace idk_why__it_s_just_existing
                 switch (userInput.ToLower())
                 {
                     case "sum":
-                        sumOfNumbers = 0;
-                        
+                        float sumOfNumbers = 0;
+
                         for (int i = 0; i < numbers.Length; i++)
                             sumOfNumbers += numbers[i];
 
@@ -32,8 +30,8 @@ namespace idk_why__it_s_just_existing
                         break;
                     default:
                         numbers[numbers.Length - 1] = Convert.ToInt32(userInput);
-                        tempNumbers = new float[numbers.Length + 1];
-                        
+                        float[] tempNumbers = new float[numbers.Length + 1];
+
                         for (int i = 0; i < numbers.Length; i++)
                             tempNumbers[i] = numbers[i];
 

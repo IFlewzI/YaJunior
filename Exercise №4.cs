@@ -21,6 +21,7 @@ namespace idk_why__it_s_just_existing
                 {
                     case "sum":
                         sumOfNumbers = 0;
+                        
                         for (int j = 0; j < numbers.Length; j++)
                             sumOfNumbers += numbers[j];
 

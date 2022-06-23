@@ -15,7 +15,6 @@ namespace idk_why__it_s_just_existing
             int quanityOfTransferedNumbers = 0;
             int minUntransferedNumber;
 
-
             for (int i = 0; i < numbers.Length; i++)
             {
                 numbers[i] = random.Next(minRandomNumber, maxRandomNumber + 1);

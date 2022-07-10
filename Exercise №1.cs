@@ -26,16 +26,12 @@ namespace idk_why__it_s_just_existing
                 {
                     case "1":
                         AddDossier(ref names, ref professions);
-
-                        Console.WriteLine("\nДосье добавлено. ");
                         break;
                     case "2":
                         PrintAllDossiers(names, professions);
                         break;
                     case "3":
                         DeleteDossier(ref names, ref professions);
-
-                        Console.WriteLine("\nДосье удалено. ");
                         break;
                     case "4":
                         FindDossierByLastName(ref names, ref professions);
@@ -74,6 +70,27 @@ namespace idk_why__it_s_just_existing
             return array = tempArray;
         }
 
+        static string[] IncreaseArray(string[] array, string lineToAdd = "")
+        {
+            string[] tempArray = new string[array.Length + 1];
+
+            for (int i = 0; i < array.Length; i++)
+                tempArray[i] = array[i];
+
+            tempArray[tempArray.Length - 1] = lineToAdd;
+            return tempArray;
+        }
+
+        static string[] DecreaseArray(string[] array)
+        {
+            string[] tempArray = new string[array.Length - 1];
+
+            for (int i = 0; i < tempArray.Length; i++)
+                tempArray[i] = array[i];
+
+            return tempArray;
+        }
+
         static void AddDossier(ref string[] names, ref string[] professions)
         {
             Console.Write("\nВведите ФИО. Поле для ввода: ");
@@ -81,29 +98,18 @@ namespace idk_why__it_s_just_existing
             Console.Write("\nВведите должность. Поле для ввода: ");
             string dossierProfession = Console.ReadLine();
 
-            names = ChangeStringArraySize(names, 1);
-            professions = ChangeStringArraySize(professions, 1);
+            names = IncreaseArray(names, dossierName);
+            professions = IncreaseArray(professions, dossierProfession);
 
-            names[names.Length - 1] = dossierName;
-            professions[professions.Length - 1] = dossierProfession;
+            Console.WriteLine("\nДосье добавлено. ");
         }
 
         static void PrintAllDossiers(string[] names, string[] professions)
         {
             if (names.Length > 0)
             {
-                string[] fullName;
-
                 for (int i = 0; i < names.Length; i++)
-                {
-                    fullName = names[i].Split(' ');
-                    Console.Write("\n" + (i + 1) + ") ");
-
-                    for (int j = 0; j < fullName.Length; j++)
-                        Console.Write(fullName[j] + '-');
-
-                    Console.Write(professions[i]);
-                }
+                    PrintSpecificDossier(names, professions, i);
 
                 Console.WriteLine();
             }
@@ -136,8 +142,8 @@ namespace idk_why__it_s_just_existing
                             }
                         }
 
-                        names = ChangeStringArraySize(names, -1);
-                        professions = ChangeStringArraySize(professions, -1);
+                        names = DecreaseArray(names);
+                        professions = DecreaseArray(professions);
                         isDataOkay = true;
                     }
                     else
@@ -146,6 +152,8 @@ namespace idk_why__it_s_just_existing
                         isDataOkay = false;
                     }
                 } while (isDataOkay == false);
+
+                Console.WriteLine("\nДосье удалено. ");
             }
             else
             {
@@ -153,7 +161,20 @@ namespace idk_why__it_s_just_existing
             }
         }
 
-        static void FindDossierByLastName(ref string[] names, ref string[] professions)
+        static void PrintSpecificDossier(string[] names, string[] professions, int index)
+        {
+            string[] fullName;
+
+            fullName = names[index].Split(' ');
+            Console.Write("\n" + (index + 1) + ") ");
+
+            for (int i = 0; i < fullName.Length; i++)
+                Console.Write(fullName[i] + '-');
+
+            Console.Write(professions[index]);
+        }
+
+        static void FindDossierByLastName(string[] names, string[] professions)
         {
             bool isDossierFinded = false;
             string[] fullName;
@@ -167,12 +188,7 @@ namespace idk_why__it_s_just_existing
                 fullName = names[i].Split(' ');
                 if (lastName == fullName[0])
                 {
-                    Console.Write("\n" + (i + 1) + ") ");
-
-                    for (int j = 0; j < fullName.Length; j++)
-                        Console.Write(fullName[j] + '-');
-
-                    Console.Write(professions[i]);
+                    PrintSpecificDossier(names, professions, i);
 
                     isDossierFinded = true;
                 }

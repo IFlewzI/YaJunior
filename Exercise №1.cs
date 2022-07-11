@@ -73,6 +73,20 @@ namespace idk_why__it_s_just_existing
             return tempArray;
         }
 
+        static string[] ShiftArray(string[] array, int startPosition = 0)
+        {
+            string firstElement = array[startPosition];
+
+            for (int i = startPosition; i < array.Length; i++)
+            {
+                if (i != array.Length - 1)
+                    array[i] = array[i + 1];
+            }
+
+            array[array.Length - 1] = firstElement;
+            return array;
+        }
+
         static void AddDossier(ref string[] names, ref string[] professions)
         {
             Console.Write("\nВведите ФИО. Поле для ввода: ");
@@ -115,14 +129,8 @@ namespace idk_why__it_s_just_existing
 
                     if (dossierNumber > 0 && dossierNumber <= names.Length)
                     {
-                        for (int i = dossierNumber - 1; i < names.Length; i++)
-                        {
-                            if (i < names.Length - 1)
-                            {
-                                names[i] = names[i + 1];
-                                professions[i] = professions[i + 1];
-                            }
-                        }
+                        names = ShiftArray(names, dossierNumber - 1);
+                        professions = ShiftArray(professions, dossierNumber - 1);
 
                         names = DecreaseArray(names);
                         professions = DecreaseArray(professions);

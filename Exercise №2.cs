@@ -6,13 +6,14 @@ namespace idk_why__it_s_just_existing
     {
         static void Main()
         {
+            bool isProgramRunning = true;
             int barSize;
             int percentageOfOccupancy = 0;
 
             Console.Write("Укажите величину шкалы. Поле для ввода: ");
             barSize = Convert.ToInt32(Console.ReadLine());
 
-            while (true)
+            while (isProgramRunning)
             {
                 DrawBar(percentageOfOccupancy, barSize);
 

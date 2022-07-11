@@ -34,7 +34,7 @@ namespace idk_why__it_s_just_existing
                         DeleteDossier(ref names, ref professions);
                         break;
                     case "4":
-                        FindDossierByLastName(ref names, ref professions);
+                        FindDossierByLastName(names, professions);
                         break;
                     case "5":
                         isProgramRunning = false;
@@ -50,24 +50,6 @@ namespace idk_why__it_s_just_existing
                 if (userInput != "2" && userInput != "5")
                     Console.Clear();
             }
-        }
-
-        static string[] ChangeStringArraySize(string[] array, int quanityOfChanges)
-        {
-            string[] tempArray = new string[array.Length + quanityOfChanges];
-
-            if (quanityOfChanges > 0)
-            {
-                for (int i = 0; i < array.Length; i++)
-                    tempArray[i] = array[i];
-            }
-            else if (quanityOfChanges < 0)
-            {
-                for (int i = 0; i < tempArray.Length; i++)
-                    tempArray[i] = array[i];
-            }
-
-            return array = tempArray;
         }
 
         static string[] IncreaseArray(string[] array, string lineToAdd = "")
@@ -176,7 +158,7 @@ namespace idk_why__it_s_just_existing
 
         static void FindDossierByLastName(string[] names, string[] professions)
         {
-            bool isDossierFinded = false;
+            bool isDossierFound = false;
             string[] fullName;
             string lastName;
 
@@ -190,13 +172,13 @@ namespace idk_why__it_s_just_existing
                 {
                     PrintSpecificDossier(names, professions, i);
 
-                    isDossierFinded = true;
+                    isDossierFound = true;
                 }
             }
 
             Console.WriteLine();
 
-            if (!isDossierFinded)
+            if (isDossierFound == false)
                 Console.Write("Досье не найдено. \n");
         }
     }

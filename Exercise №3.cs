@@ -6,6 +6,11 @@ namespace idk_why__it_s_just_existing
     {
         static void Main()
         {
+            ReadInt();
+        }
+
+        static void ReadInt()
+        {
             string userInput;
             int integer;
 

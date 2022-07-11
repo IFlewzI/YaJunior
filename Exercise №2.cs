@@ -9,13 +9,14 @@ namespace idk_why__it_s_just_existing
             bool isProgramRunning = true;
             int barSize;
             int percentageOfOccupancy = 0;
+            int maxPercents = 100;
 
             Console.Write("Укажите величину шкалы. Поле для ввода: ");
             barSize = Convert.ToInt32(Console.ReadLine());
 
             while (isProgramRunning)
             {
-                DrawBar(percentageOfOccupancy, barSize);
+                DrawBar(percentageOfOccupancy, barSize, maxPercents);
 
                 Console.Write("Укажите процент заполненности шкалы. Поле для ввода: ");
                 percentageOfOccupancy = Convert.ToInt32(Console.ReadLine());
@@ -24,13 +25,15 @@ namespace idk_why__it_s_just_existing
             }
         }
 
-        static void DrawBar(int percentageOfOccupancy, int barSize)
+        static void DrawBar(int percentageOfOccupancy, int barSize, int maxPercents = 100)
         {
             string bar = "";
+            float percentsToFillOneSegment = maxPercents / barSize;
+            int quanityOfSegmentsToFill = Convert.ToInt32(percentageOfOccupancy / percentsToFillOneSegment);
 
             for (int i = 0; i < barSize; i++)
             {
-                if (i < percentageOfOccupancy / 10)
+                if (i < quanityOfSegmentsToFill)
                     bar += '#';
                 else
                     bar += '_';

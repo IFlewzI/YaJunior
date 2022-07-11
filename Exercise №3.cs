@@ -6,10 +6,13 @@ namespace idk_why__it_s_just_existing
     {
         static void Main()
         {
-            ReadInt();
+            int integer;
+
+            integer = ReadInt();
+            Console.WriteLine("\nЦелое число которое вы ввели: " + integer);
         }
 
-        static void ReadInt()
+        static int ReadInt()
         {
             string userInput;
             int integer;
@@ -24,7 +27,7 @@ namespace idk_why__it_s_just_existing
                 userInput = Console.ReadLine();
             }
 
-            Console.WriteLine("\nЦелое число которое вы ввели: " + integer);
+            return integer;
         }
     }
 }

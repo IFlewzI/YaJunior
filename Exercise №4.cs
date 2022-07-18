@@ -45,7 +45,7 @@ namespace idk_why__it_s_just_existing
                 DrawBar(22, playerHP, ConsoleColor.DarkRed, playerSymbol);
                 DrawBar(23, playerMoney, ConsoleColor.DarkYellow, moneySymbol, maxMoneyOnMap);
                 MovePlayer(ref playerXPosition, ref playerYPosition, map, ref isPlayerDamaged);
-                CheckPlayerCollision(ref isGameRunning, ref isPlayerDamaged, map, playerXPosition, playerYPosition, ref playerHP, ref playerMoney, maxMoneyOnMap, moneySymbol);
+                CheckPlayerCollision(ref isGameRunning, ref isPlayerDamaged, ref map, playerXPosition, playerYPosition, ref playerHP, ref playerMoney, maxMoneyOnMap, moneySymbol);
             }
         }
 
@@ -103,22 +103,30 @@ namespace idk_why__it_s_just_existing
         static void MovePlayer(ref int playerXPosition, ref int playerYPosition, char[,] map, ref bool isPlayerDamaged)
         {
             ConsoleKeyInfo userKeyInput = Console.ReadKey();
+            int playerXChanges = 0;
+            int playerYChanges = 0;
 
             switch (userKeyInput.Key)
             {
                 case ConsoleKey.UpArrow:
-                    ChangePlayerPosition(map, ref playerXPosition, ref playerYPosition, 0, -1, out isPlayerDamaged);
+                    playerXChanges = 0;
+                    playerYChanges = -1;
                     break;
                 case ConsoleKey.DownArrow:
-                    ChangePlayerPosition(map, ref playerXPosition, ref playerYPosition, 0, 1, out isPlayerDamaged);
+                    playerXChanges = 0;
+                    playerYChanges = 1;
                     break;
                 case ConsoleKey.LeftArrow:
-                    ChangePlayerPosition(map, ref playerXPosition, ref playerYPosition, -1, 0, out isPlayerDamaged);
+                    playerXChanges = -1;
+                    playerYChanges = 0;
                     break;
                 case ConsoleKey.RightArrow:
-                    ChangePlayerPosition(map, ref playerXPosition, ref playerYPosition, 1, 0, out isPlayerDamaged);
+                    playerXChanges = 1;
+                    playerYChanges = 0;
                     break;
             }
+
+            ChangePlayerPosition(map, ref playerXPosition, ref playerYPosition, playerXChanges, playerYChanges, out isPlayerDamaged);
         }
 
         static void ChangePlayerPosition(char[,] map, ref int playerXPosition, ref int playerYPosition, int playerXChanges, int playerYChanges, out bool isPlayerDamaged)
@@ -135,7 +143,13 @@ namespace idk_why__it_s_just_existing
             }
         }
 
-        static void CheckPlayerCollision(ref bool isGameRunning, ref bool isPlayerDamaged, char[,] map, int playerXPosition, int playerYPosition, ref int playerHP, ref int playerMoney, int maxMoneyOnMap, char moneySymbol)
+        static void CheckPlayerCollision(ref bool isGameRunning, ref bool isPlayerDamaged, ref char[,] map, int playerXPosition, int playerYPosition, ref int playerHP, ref int playerMoney, int maxMoneyOnMap, char moneySymbol)
+        {
+            CheckCoinHit(ref isGameRunning, ref map, playerXPosition, playerYPosition, ref playerMoney, maxMoneyOnMap, moneySymbol);
+            CheckWallHit(ref isGameRunning, map, playerXPosition, playerYPosition, ref isPlayerDamaged, ref playerHP);
+        }
+
+        static void CheckCoinHit(ref bool isGameRunning, ref char[,] map, int playerXPosition, int playerYPosition, ref int playerMoney, int maxMoneyOnMap, char moneySymbol)
         {
             if (map[playerXPosition, playerYPosition] == moneySymbol)
             {
@@ -149,7 +163,10 @@ namespace idk_why__it_s_just_existing
                     isGameRunning = false;
                 }
             }
+        }
 
+        static void CheckWallHit(ref bool isGameRunning, char[,] map, int playerXPosition, int playerYPosition, ref bool isPlayerDamaged, ref int playerHP)
+        {
             if (isPlayerDamaged)
             {
                 playerHP--;

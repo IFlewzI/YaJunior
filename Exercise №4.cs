@@ -44,13 +44,6 @@ namespace idk_why__it_s_just_existing
                 DrawPlayer(playerXPosition, playerYPosition, playerSymbol);
                 DrawBar(22, playerHP, ConsoleColor.DarkRed, playerSymbol);
                 DrawBar(23, playerMoney, ConsoleColor.DarkYellow, moneySymbol, maxMoneyOnMap);
-
-                Console.SetCursorPosition(0, 25);
-                Console.WriteLine("Блок сверху: '" + map[playerXPosition - 1, playerYPosition] + "'");
-                Console.WriteLine("Блок снизу : '" + map[playerXPosition + 1, playerYPosition] + "'");
-                Console.WriteLine("Блок слева : '" + map[playerXPosition, playerYPosition - 1] + "'");
-                Console.WriteLine("Блок справа: '" + map[playerXPosition, playerYPosition + 1] + "'");
-
                 MovePlayer(ref playerXPosition, ref playerYPosition, map, ref isPlayerDamaged);
                 CheckPlayerCollision(ref isGameRunning, ref isPlayerDamaged, map, playerXPosition, playerYPosition, ref playerHP, ref playerMoney, maxMoneyOnMap, moneySymbol);
             }
@@ -114,29 +107,31 @@ namespace idk_why__it_s_just_existing
             switch (userKeyInput.Key)
             {
                 case ConsoleKey.UpArrow:
-                    if (map[playerXPosition, playerYPosition - 1] != '#')
-                        playerYPosition--;
-                    else
-                        isPlayerDamaged = true;
+                    ChangePlayerPosition(map, ref playerXPosition, ref playerYPosition, 0, -1, out isPlayerDamaged);
                     break;
                 case ConsoleKey.DownArrow:
-                    if (map[playerXPosition, playerYPosition + 1] != '#')
-                        playerYPosition++;
-                    else
-                        isPlayerDamaged = true;
+                    ChangePlayerPosition(map, ref playerXPosition, ref playerYPosition, 0, 1, out isPlayerDamaged);
                     break;
                 case ConsoleKey.LeftArrow:
-                    if (map[playerXPosition - 1, playerYPosition] != '#')
-                        playerXPosition--;
-                    else
-                        isPlayerDamaged = true;
+                    ChangePlayerPosition(map, ref playerXPosition, ref playerYPosition, -1, 0, out isPlayerDamaged);
                     break;
                 case ConsoleKey.RightArrow:
-                    if (map[playerXPosition + 1, playerYPosition] != '#')
-                        playerXPosition++;
-                    else
-                        isPlayerDamaged = true;
+                    ChangePlayerPosition(map, ref playerXPosition, ref playerYPosition, 1, 0, out isPlayerDamaged);
                     break;
+            }
+        }
+
+        static void ChangePlayerPosition(char[,] map, ref int playerXPosition, ref int playerYPosition, int playerXChanges, int playerYChanges, out bool isPlayerDamaged)
+        {
+            if (map[playerXPosition + playerXChanges, playerYPosition + playerYChanges] != '#')
+            {
+                playerXPosition += playerXChanges;
+                playerYPosition += playerYChanges;
+                isPlayerDamaged = false;
+            }
+            else
+            {
+                isPlayerDamaged = true;
             }
         }
 

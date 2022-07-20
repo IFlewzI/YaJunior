@@ -10,7 +10,6 @@ namespace idk_why__it_s_just_existing
         {
             List<int> numbers = new List<int>();
             bool isProgramRunning = true;
-            int sum;
             string userInput;
 
             while (isProgramRunning)
@@ -21,7 +20,7 @@ namespace idk_why__it_s_just_existing
                 switch (userInput.ToLower())
                 {
                     case "sum":
-                        sum = 0;
+                        int sum = 0;
 
                         for (int i = 0; i < numbers.Count; i++)
                             sum += numbers[i];
@@ -32,12 +31,14 @@ namespace idk_why__it_s_just_existing
                         isProgramRunning = false;
                         break;
                     default:
-                        try
+                        int convertedNumber;
+
+                        if (int.TryParse(userInput, out convertedNumber))
                         {
-                            numbers.Add(Convert.ToInt32(userInput));
+                            numbers.Add(convertedNumber);
                             Console.WriteLine("\nЧисло было успешно добавлено.");
                         }
-                        catch (FormatException)
+                        else
                         {
                             Console.WriteLine("\nБыло введено не число и не команда.");
                         }

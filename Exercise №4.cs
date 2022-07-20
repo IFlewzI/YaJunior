@@ -58,7 +58,10 @@ namespace idk_why__it_s_just_existing
             Console.Write("\nВведите должность. Поле для ввода: ");
             profession = Console.ReadLine();
 
-            dossiers.Add(fullName, profession);
+            if (dossiers.ContainsKey(fullName))
+                Console.WriteLine("\nУказанное ФИО уже есть в списке досье.");
+            else
+                dossiers.Add(fullName, profession);
         }
 
         static void PrintAllDossiers(Dictionary<string, string> dossiers)

@@ -68,19 +68,16 @@ namespace idk_why__it_s_just_existing
         {
             if (dossiers.Count > 0)
             {
-                string[] keysArray = dossiers.Keys.ToArray();
-                string[] valuesArray = dossiers.Values.ToArray();
-
-                for (int i = 0; i < dossiers.Count; i++)
+                foreach (var dossier in dossiers)
                 {
-                    string[] fullName = keysArray[i].Split(' ');
+                    string[] fullName = dossier.Key.Split();
 
                     Console.WriteLine();
 
-                    for (int j = 0; j < fullName.Length; j++)
-                        Console.Write(fullName[j] + '-');
+                    for (int i = 0; i < fullName.Length; i++)
+                        Console.Write(fullName[i] + '-');
 
-                    Console.Write(valuesArray[i]);
+                    Console.Write(dossier.Value);
                     Console.WriteLine();
                 }
             }

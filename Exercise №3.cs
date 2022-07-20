@@ -26,7 +26,7 @@ namespace idk_why__it_s_just_existing
                         isProgramRunning = false;
                         break;
                     default:
-                        AddNumber(ref numbers, userInput);
+                        AddNumber(numbers, userInput);
                         break;
                 }
 
@@ -46,7 +46,7 @@ namespace idk_why__it_s_just_existing
             Console.WriteLine("\nСумма всех введённых ранее чисел: " + sum);
         }
 
-        static void AddNumber(ref List<int> numbers, string userInput)
+        static void AddNumber(List<int> numbers, string userInput)
         {
             int convertedNumber;
 

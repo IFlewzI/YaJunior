@@ -26,13 +26,13 @@ namespace idk_why__it_s_just_existing
                 switch (userInput)
                 {
                     case "1":
-                        AddDossier(ref dossiers);
+                        AddDossier(dossiers);
                         break;
                     case "2":
                         PrintAllDossiers(dossiers);
                         break;
                     case "3":
-                        DeleteDossier(ref dossiers);
+                        DeleteDossier(dossiers);
                         break;
                     case "4":
                         isProgramRunning = false;
@@ -47,7 +47,7 @@ namespace idk_why__it_s_just_existing
             }
         }
 
-        static void AddDossier(ref Dictionary<string, string> dossiers)
+        static void AddDossier(Dictionary<string, string> dossiers)
         {
             string fullName;
             string profession;
@@ -87,7 +87,7 @@ namespace idk_why__it_s_just_existing
             }
         }
 
-        static void DeleteDossier(ref Dictionary<string, string> dossiers)
+        static void DeleteDossier(Dictionary<string, string> dossiers)
         {
             string fullName;
 

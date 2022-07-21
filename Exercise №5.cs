@@ -35,13 +35,9 @@ namespace idk_why__it_s_just_existing
 
         static void UniteArrays(List<object> result, object[] array1, object[] array2)
         {
-            foreach (var element in array1)
-            {
-                if (result.Contains(element) == false)
-                    result.Add(element);
-            }
+            var unitedArrays = array1.Concat(array2);
 
-            foreach (var element in array2)
+            foreach (var element in unitedArrays)
             {
                 if (result.Contains(element) == false)
                     result.Add(element);
